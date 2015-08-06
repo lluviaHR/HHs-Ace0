@@ -3,8 +3,8 @@
 Health and Human Services 
 
 ## Technology Stack
-R
-Python
-HTML
-Javascript
-CartoDB
+*R
+*Python
+*CartoDB
+*Javascript
+
