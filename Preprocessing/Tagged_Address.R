@@ -1,6 +1,3 @@
-setwd("E:/HHS/")
-#setwd("\\\\doitt.nycnet\\root\\4MTC_User_Data\\lnhernandez\\My Documents\\Projects\\ApplicationData2b\\Tagged Proposals Contracts - Site Addresses\\")
-dir()
 
 install.packages("dplyr")
 install.packages("zipcode")
@@ -12,8 +9,8 @@ library(stringr)
 
 
 ##================+++++++ Clean the Addresses ++++++++==============================
-address <- read.csv("Provider - Proposals Site Address.csv")
-#cartodb <- read.csv('provider_proposals_site_address_6_23_3_cartodb.csv')
+address <- read.csv("data.csv")
+
 
 ## Exploring the variables
 table(address$City)
@@ -38,26 +35,26 @@ address$Address.1 <- str_to_title(address$Address.1)
 ##======== +++++++ Get the lat an long
 address_latlong <-merge (address, zipcode,by="zip", all.x =TRUE)
 
-write.csv(address_latlong,"Provider - Proposals Site Address Clean.csv") 
+write.csv(address_latlong,"lat_long.csv") 
 
 ##================+++++++ Merge Datasets: Address and tagged Contracts ++++++++==============================
-tagged <- read.csv("Tagged Contracts_withProposalID.csv")
-address <- read.csv("Provider - Proposals Site Address Clean.csv")
+tagged <- read.csv("data1.csv")
+address <- read.csv("lat_long.csv")
 
 library(data.table)
 tagg <- as.data.table(tagged)
 address <- as.data.table(address)
-#cartodb <- as.data.table(cartodb)
+#db <- as.data.table(cartodb)
 
 setkey(tagg,EIN,Proposal.ID)
 setkey(address, EIN,Proposal.ID)
-#setkey(cartodb, EIN,Proposal.ID)
+#setkey(db, EIN,Proposal.ID)
 
 address_tagged<-merge(address,tagged, all=TRUE)
-#cartodb_tagged<- merge(cartodb,tagged, all=TRUE)
+#db_tagged<- merge(db,tagged, all=TRUE)
 
 #filter those with 0 Proposal ID and thos where Agency Name =NA
 address_tagged <- address_tagged[Proposal.ID!="0" & ï..Agency.Name !="NA",]
 
-write.csv(address_tagged,"Tagged Contracts with_Addresses.csv") 
+#write.csv(address_tagged,"lat_long final version.csv") 
 

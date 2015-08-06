@@ -1,14 +1,10 @@
-#Setting the working directory
-setwd("E:/HHS/")
-dir()
-# setwd("\\\\doitt.nycnet\\root\\4MTC_User_Data\\lnhernandez\\My Documents\\Projects\\ApplicationData2b\\Tagged Proposals Contracts - Site Addresses\\")
-# dir()
+
 install.packages("dplyr")
 install.packages("tidyr")
 install.packages("data.table")
 
 ##======= Readig the files
-tagged <- read.csv("Tagged Contracts_withProposalID.csv")
+tagged <- read.csv("data.csv")
 require(dplyr)
 require(tidyr)
 require(data.table)
@@ -72,4 +68,4 @@ subset_tagged<-filter(tagged,
 tagged_with_geography <- rbind(subset_tagged,taggedWithAssignedCD)
 
 ##===== Copy this new dataset to a csv file
-write.csv(tagged_with_geography,"All tagged contracts with specific Geography.csv")
+write.csv(tagged_with_geography,"data formatted.csv")
